@@ -5,6 +5,7 @@ package project
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 
 class CompilerTest {
     @Test
@@ -23,5 +24,39 @@ class CompilerTest {
                 Token("paren", ")")
             )
         )
+    }
+
+    @Test
+    fun testParserCanParseAst() {
+        val result = parser(
+            arrayListOf(
+                Token("paren", "("),
+                Token("name", "add"),
+                Token("number", "2"),
+                Token("paren", "("),
+                Token("name", "subtract"),
+                Token("number", "4"),
+                Token("number", "2"),
+                Token("paren", ")"),
+                Token("paren", ")")
+            )
+        )
+
+        assertIs<Program>(result)
+
+        val call = result.body[0] as CallExpression
+        assertEquals(call.name, "add")
+
+        val number = call.params[0] as NumberLiteral
+        assertEquals(number.value, "2")
+
+        val callInner = call.params[1] as CallExpression
+        assertEquals(callInner.name, "subtract")
+
+        val leftInnerNumber = callInner.params[0] as NumberLiteral
+        assertEquals(leftInnerNumber.value, "4")
+
+        val rightInnerNumber = callInner.params[1] as NumberLiteral
+        assertEquals(rightInnerNumber.value, "2")
     }
 }

@@ -45,15 +45,19 @@ class CompilerTest {
         assertIs<Program>(result)
 
         val call = result.body[0] as CallExpression
+        assertIs<CallExpression>(call)
         assertEquals(call.name, "add")
 
         val number = call.params[0] as NumberLiteral
+        assertIs<NumberLiteral>(number)
         assertEquals(number.value, "2")
 
         val callInner = call.params[1] as CallExpression
+        assertIs<CallExpression>(callInner)
         assertEquals(callInner.name, "subtract")
 
         val leftInnerNumber = callInner.params[0] as NumberLiteral
+        assertIs<NumberLiteral>(leftInnerNumber)
         assertEquals(leftInnerNumber.value, "4")
 
         val rightInnerNumber = callInner.params[1] as NumberLiteral

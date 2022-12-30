@@ -1,7 +1,7 @@
 package project
 
 class Visitor {
-    fun visit(node: LispNode, parent: LispNode) {
+    fun visit(node: Node, parent: Node) {
         when (node) {
             is NumberLiteral -> {
                 parent._context.add(NumberLiteral(node.value))
@@ -21,7 +21,7 @@ class Visitor {
         }
     }
 
-    private fun toNode(cNode: CNode): LispNode = when (cNode) {
+    private fun toNode(cNode: CNode): Node = when (cNode) {
         is CNumberLiteral -> NumberLiteral(cNode.value)
         is CStringLiteral -> StringLiteral(cNode.value)
         is CCallExpression -> {

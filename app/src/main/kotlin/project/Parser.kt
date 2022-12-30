@@ -1,10 +1,10 @@
 package project
 
 class Parser {
-    fun exec(tokens: ArrayList<Token>): LispNode {
+    fun exec(tokens: ArrayList<Token>): Node {
         var current = 0
 
-        fun walk(): LispNode {
+        fun walk(): Node {
             var token = tokens[current]
 
             if (token.type == "number") {
@@ -42,7 +42,7 @@ class Parser {
             throw TypeCastException(token.type)
         }
 
-        var ast = Program(ArrayList())
+        var ast = Program(arrayListOf())
 
         while (current < tokens.size) {
             ast.body.add(walk())
@@ -52,18 +52,18 @@ class Parser {
     }
 }
 
-sealed interface LispNode {
-    val _context: ArrayList<LispNode>
+sealed interface Node {
+    val _context: ArrayList<Node>
 }
 
-class Program(val body: ArrayList<LispNode>, override val _context: ArrayList<LispNode> = ArrayList()) : LispNode
+class Program(val body: ArrayList<Node>, override val _context: ArrayList<Node> = arrayListOf()) : Node
 
-class NumberLiteral(val value: String, override val _context: ArrayList<LispNode> = ArrayList()) : LispNode
+class NumberLiteral(val value: String, override val _context: ArrayList<Node> = arrayListOf()) : Node
 
-class StringLiteral(val value: String, override val _context: ArrayList<LispNode> = ArrayList()) : LispNode
+class StringLiteral(val value: String, override val _context: ArrayList<Node> = arrayListOf()) : Node
 
 class CallExpression(
     val name: String,
-    val params: ArrayList<LispNode>,
-    override var _context: ArrayList<LispNode> = ArrayList()
-) : LispNode
+    val params: ArrayList<Node>,
+    override var _context: ArrayList<Node> = arrayListOf()
+) : Node

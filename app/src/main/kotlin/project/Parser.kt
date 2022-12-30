@@ -52,12 +52,18 @@ class Parser {
     }
 }
 
-sealed interface Node
+sealed interface Node {
+    val _context: ArrayList<Node>?
+}
 
-class Program(val body: ArrayList<Node>) : Node
+class Program(val body: ArrayList<Node>, override val _context: ArrayList<Node> = arrayListOf()) : Node
 
-class NumberLiteral(val value: String) : Node
+class NumberLiteral(val value: String, override val _context: ArrayList<Node> = arrayListOf()) : Node
 
-class StringLiteral(val value: String) : Node
+class StringLiteral(val value: String, override val _context: ArrayList<Node> = arrayListOf()) : Node
 
-class CallExpression(val name: String, val params: ArrayList<Node>) : Node
+class CallExpression(
+    val name: String,
+    val params: ArrayList<Node>,
+    override val _context: ArrayList<Node> = arrayListOf()
+) : Node

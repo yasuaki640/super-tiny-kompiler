@@ -10,7 +10,7 @@ import kotlin.test.assertIs
 class CompilerTest {
     @Test
     fun testTokenizerCanAnalyzeInput() {
-        val result = tokenizer("(add 2 (subtract 4 2))")
+        val result = Tokenizer().exec("(add 2 (subtract 4 2))")
         assertEquals(
             result, arrayListOf(
                 Token("paren", "("),
@@ -28,7 +28,7 @@ class CompilerTest {
 
     @Test
     fun testParserCanParseAst() {
-        val result = parser(
+        val result = Parser().exec(
             arrayListOf(
                 Token("paren", "("),
                 Token("name", "add"),

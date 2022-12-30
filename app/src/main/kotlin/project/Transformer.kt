@@ -5,7 +5,7 @@ class Transformer {
 //
 //        class Aaa {}
 //
-//        var newAst = Program(arrayListOf())
+//        var newAst = Program(ArrayList())
 //
 //        val t = Traverser()
 //

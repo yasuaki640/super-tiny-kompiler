@@ -1,15 +1,15 @@
 package project;
 
 class Traverser {
-    fun exec(ast: Program, visitor: (node: Node, parent: Node) -> Unit) {
+    fun exec(ast: Program, visitor: (node: LispNode, parent: LispNode) -> Unit) {
         traverseNode(ast, visitor)
     }
 
-    private fun traverseArray(children: ArrayList<Node>, parent: Node) {
+    private fun traverseArray(children: ArrayList<LispNode>, parent: LispNode) {
         children.forEach { traverseNode(it, parent) }
     }
 
-    private fun traverseNode(node: Node, parent: Any) {
+    private fun traverseNode(node: LispNode, parent: Any) {
         // If there is an `enter` method for this node type we'll call it with the
         // `node` and its `parent`.
         TODO("execute enter if exists")

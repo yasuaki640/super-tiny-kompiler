@@ -1,7 +1,7 @@
 package project;
 
 class Traverser {
-    fun exec(ast: Program, visitor: (node: Node, parent: Node) -> Unit) {
+    fun exec(ast: Program, visitor: (Node, Node) -> Unit) {
         traverseNode(ast, visitor)
     }
 
@@ -42,3 +42,5 @@ class CCallExpression(
     val callee: Identifier,
     val arguments: ArrayList<CNode>
 ) : CNode
+
+class CExpressionStatement(expression: CCallExpression) : CNode

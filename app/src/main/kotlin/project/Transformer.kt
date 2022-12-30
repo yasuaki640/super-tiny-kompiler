@@ -1,24 +1,15 @@
 package project
 
 class Transformer {
-//    fun transformer(ast: Program): Node {
-//
-//        class Aaa {}
-//
-//        var newAst = Program(arrayListOf())
-//
-//        val t = Traverser()
-//
-//        t.exec(ast) { node, parent ->
-//            when (node) {
-//                is NumberLiteral -> {
-//                    parent.
-//                }
-//
-//                is StringLiteral -> {}
-//                is CallExpression -> {}
-//                is Program -> {}
-//            }
-//        }
-//    }
+    fun transformer(ast: Program): CProgram {
+        var newAst = CProgram(ArrayList())
+
+        ast._context = newAst.body
+
+        val visitor = Visitor().enter
+
+        Traverser().exec(ast, visitor)
+
+        return newAst
+    }
 }

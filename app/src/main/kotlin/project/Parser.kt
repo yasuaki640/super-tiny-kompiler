@@ -53,17 +53,18 @@ class Parser {
 }
 
 sealed interface Node {
-    val _context: ArrayList<Node>
+    var _context: ArrayList<CNode>
 }
 
-class Program(val body: ArrayList<Node>, override val _context: ArrayList<Node> = arrayListOf()) : Node
+// TODO _contextは同じインスタンスを参照させる
+class Program(val body: ArrayList<Node>, override var _context: ArrayList<CNode> = arrayListOf()) : Node
 
-class NumberLiteral(val value: String, override val _context: ArrayList<Node> = arrayListOf()) : Node
+class NumberLiteral(val value: String, override var _context: ArrayList<CNode> = arrayListOf()) : Node
 
-class StringLiteral(val value: String, override val _context: ArrayList<Node> = arrayListOf()) : Node
+class StringLiteral(val value: String, override var _context: ArrayList<CNode> = arrayListOf()) : Node
 
 class CallExpression(
     val name: String,
     val params: ArrayList<Node>,
-    override var _context: ArrayList<Node> = arrayListOf()
+    override var _context: ArrayList<CNode> = arrayListOf()
 ) : Node

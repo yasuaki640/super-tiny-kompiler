@@ -1,35 +1,29 @@
 package project
 
 class Visitor {
-    fun visit(node: Node, parent: Node) {
+    val enter = fun(node: Node, parent: Node) {
         when (node) {
             is NumberLiteral -> {
-                parent._context.add(NumberLiteral(node.value))
+                parent._context.add(CNumberLiteral(node.value))
             }
 
             is StringLiteral -> {
-                parent._context.add(StringLiteral(node.value))
+                parent._context.add(CStringLiteral(node.value))
             }
 
             is CallExpression -> {
                 var expression = CCallExpression(Identifier(node.name), ArrayList())
-                val lispArgs = expression.arguments.map { toNode(it) }
-                node._context = ArrayList(lispArgs)
+                node._context = expression.arguments
+
+                if (parent !is CallExpression) {
+                    val expressionStatement = CExpressionStatement(expression)
+                    parent._context.add(expressionStatement)
+                } else {
+                    parent._context.add(expression)
+                }
             }
 
             else -> {}
         }
-    }
-
-    private fun toNode(cNode: CNode): Node = when (cNode) {
-        is CNumberLiteral -> NumberLiteral(cNode.value)
-        is CStringLiteral -> StringLiteral(cNode.value)
-        is CCallExpression -> {
-            val lispArgs = cNode.arguments.map { toNode(it) }
-            val params = ArrayList(lispArgs)
-            CallExpression(cNode.callee.name, params)
-        }
-
-        else -> throw TypeCastException()
     }
 }

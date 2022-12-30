@@ -27,3 +27,18 @@ class Traverser {
         TODO("execute exit if exists")
     }
 }
+
+sealed interface CNode
+
+class CProgram(val body: ArrayList<CNode>) : CNode
+
+class CNumberLiteral(val value: String) : CNode
+
+class CStringLiteral(val value: String) : CNode
+
+class Identifier(val name: String) : CNode
+
+class CCallExpression(
+    val callee: Identifier,
+    val arguments: ArrayList<CNode>
+) : CNode

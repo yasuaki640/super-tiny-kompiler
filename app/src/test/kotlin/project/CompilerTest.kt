@@ -104,4 +104,28 @@ class CompilerTest {
         assertEquals(innerArguments[0], CNumberLiteral("4"))
         assertEquals(innerArguments[1], CNumberLiteral("2"))
     }
+
+    @Test
+    fun testCodeGeneratorCanGenerateCLikeCode() {
+        val generator = CodeGenerator()
+        val result = generator.exec(
+            CProgram(
+                arrayListOf(
+                    CExpressionStatement(
+                        CCallExpression(
+                            Identifier("add"), arrayListOf(
+                                CNumberLiteral("2"), CCallExpression(
+                                    Identifier("subtract"), arrayListOf(
+                                        CNumberLiteral("4"), CNumberLiteral("2")
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+
+        assertEquals(result, "add(2, subtract(4, 2));")
+    }
 }

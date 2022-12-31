@@ -17,13 +17,10 @@ class Traverser(val visitor: (Node, Node) -> Unit) {
         when (node) {
             is Program -> traverseArray(node.body, node)
             is CallExpression -> traverseArray(node.params, node)
-            is NumberLiteral -> {}
-            is StringLiteral -> {}
+            else -> {}
         }
 
-
         // The exit process does not exist in this project.
-
     }
 }
 

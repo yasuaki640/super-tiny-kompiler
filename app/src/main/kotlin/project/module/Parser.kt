@@ -7,19 +7,19 @@ class Parser {
         fun walk(): Node {
             var token = tokens[current]
 
-            if (token.type == "number") {
+            if (token is NumberToken) {
                 current++
 
                 return NumberLiteral(token.value)
             }
 
-            if (token.type === "string") {
+            if (token is StringToken) {
                 current++
 
                 return StringLiteral(token.value)
             }
 
-            if (token.type == "paren" &&
+            if (token is ParenToken &&
                 token.value == "("
             ) {
                 token = tokens[++current]
@@ -29,7 +29,7 @@ class Parser {
                 token = tokens[++current]
 
                 // Loop until closing brackets appear
-                while (!(token.type == "paren" && token.value == ")")) {
+                while (!(token is ParenToken && token.value == ")")) {
                     node.params.add(walk())
                     token = tokens[current]
                 }
@@ -39,10 +39,10 @@ class Parser {
                 return node
             }
 
-            throw TypeCastException(token.type)
+            throw TypeCastException(token.value)
         }
 
-        var ast = Program(arrayListOf())
+        val ast = Program(arrayListOf())
 
         while (current < tokens.size) {
             ast.body.add(walk())

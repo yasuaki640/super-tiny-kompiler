@@ -9,20 +9,20 @@ class Tokenizer {
             var char = input[current]
 
             if (char == '(') {
-                tokens.add(Token("paren", "("))
+                tokens.add(ParenToken("("))
                 current++
                 continue
             }
 
             if (char == ')') {
-                tokens.add(Token("paren", ")"))
+                tokens.add(ParenToken(")"))
                 current++
                 continue
             }
 
             if (char.isWhitespace()) {
-                current++;
-                continue;
+                current++
+                continue
             }
 
             if (char.isDigit()) {
@@ -33,7 +33,7 @@ class Tokenizer {
                     char = input[++current]
                 }
 
-                tokens.add(Token("number", value))
+                tokens.add(NumberToken(value))
                 continue
             }
 
@@ -48,7 +48,7 @@ class Tokenizer {
                 }
                 char = input[++current]
 
-                tokens.add(Token("string", value))
+                tokens.add(StringToken(value))
 
                 continue
             }
@@ -61,7 +61,7 @@ class Tokenizer {
                     char = input[++current]
                 }
 
-                tokens.add(Token("name", value))
+                tokens.add(NameToken(value))
 
                 continue
             }
@@ -73,4 +73,12 @@ class Tokenizer {
     }
 }
 
-data class Token(val type: String, val value: String)
+interface Token {
+    val value: String
+}
+
+data class StringToken(override val value: String) : Token
+data class NumberToken(override val value: String) : Token
+data class ParenToken(override val value: String) : Token
+data class NameToken(override val value: String) : Token
+

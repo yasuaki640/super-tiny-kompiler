@@ -11,15 +11,15 @@ class CompilerTest {
         val result = Tokenizer().exec("(add 2 (subtract 4 2))")
         assertEquals(
             result, arrayListOf(
-                Token("paren", "("),
-                Token("name", "add"),
-                Token("number", "2"),
-                Token("paren", "("),
-                Token("name", "subtract"),
-                Token("number", "4"),
-                Token("number", "2"),
-                Token("paren", ")"),
-                Token("paren", ")")
+                ParenToken("("),
+                NameToken("add"),
+                NumberToken("2"),
+                ParenToken("("),
+                NameToken("subtract"),
+                NumberToken("4"),
+                NumberToken("2"),
+                ParenToken(")"),
+                ParenToken(")")
             )
         )
     }
@@ -28,15 +28,15 @@ class CompilerTest {
     fun testParserCanParseAst() {
         val result = Parser().exec(
             arrayListOf(
-                Token("paren", "("),
-                Token("name", "add"),
-                Token("number", "2"),
-                Token("paren", "("),
-                Token("name", "subtract"),
-                Token("number", "4"),
-                Token("number", "2"),
-                Token("paren", ")"),
-                Token("paren", ")")
+                ParenToken("("),
+                NameToken("add"),
+                NumberToken("2"),
+                ParenToken("("),
+                NameToken("subtract"),
+                NumberToken("4"),
+                NumberToken("2"),
+                ParenToken(")"),
+                ParenToken(")")
             )
         )
 

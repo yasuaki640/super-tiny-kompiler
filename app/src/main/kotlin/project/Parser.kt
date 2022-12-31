@@ -56,7 +56,6 @@ sealed interface Node {
     var _context: ArrayList<CNode>
 }
 
-// TODO _contextは同じインスタンスを参照させる
 data class Program(val body: ArrayList<Node>, override var _context: ArrayList<CNode> = arrayListOf()) : Node
 
 data class NumberLiteral(val value: String, override var _context: ArrayList<CNode> = arrayListOf()) : Node

@@ -29,17 +29,17 @@ class Traverser(val visitor: (Node, Node) -> Unit) {
 
 sealed interface CNode
 
-class CProgram(val body: ArrayList<CNode>) : CNode
+data class CProgram(val body: ArrayList<CNode>) : CNode
 
-class CNumberLiteral(val value: String) : CNode
+data class CNumberLiteral(val value: String) : CNode
 
-class CStringLiteral(val value: String) : CNode
+data class CStringLiteral(val value: String) : CNode
 
-class Identifier(val name: String) : CNode
+data class Identifier(val name: String) : CNode
 
 class CCallExpression(
     val callee: Identifier,
     val arguments: ArrayList<CNode>
 ) : CNode
 
-class CExpressionStatement(val expression: CCallExpression) : CNode
+data class CExpressionStatement(val expression: CCallExpression) : CNode

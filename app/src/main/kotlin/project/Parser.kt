@@ -57,13 +57,13 @@ sealed interface Node {
 }
 
 // TODO _contextは同じインスタンスを参照させる
-class Program(val body: ArrayList<Node>, override var _context: ArrayList<CNode> = arrayListOf()) : Node
+data class Program(val body: ArrayList<Node>, override var _context: ArrayList<CNode> = arrayListOf()) : Node
 
-class NumberLiteral(val value: String, override var _context: ArrayList<CNode> = arrayListOf()) : Node
+data class NumberLiteral(val value: String, override var _context: ArrayList<CNode> = arrayListOf()) : Node
 
-class StringLiteral(val value: String, override var _context: ArrayList<CNode> = arrayListOf()) : Node
+data class StringLiteral(val value: String, override var _context: ArrayList<CNode> = arrayListOf()) : Node
 
-class CallExpression(
+data class CallExpression(
     val name: String,
     val params: ArrayList<Node>,
     override var _context: ArrayList<CNode> = arrayListOf()

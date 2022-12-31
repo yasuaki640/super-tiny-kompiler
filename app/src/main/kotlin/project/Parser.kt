@@ -1,7 +1,7 @@
 package project
 
 class Parser {
-    fun exec(tokens: ArrayList<Token>): Node {
+    fun exec(tokens: ArrayList<Token>): Program {
         var current = 0
 
         fun walk(): Node {

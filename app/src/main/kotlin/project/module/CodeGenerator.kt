@@ -1,4 +1,4 @@
-package project
+package project.module
 
 class CodeGenerator {
     fun exec(node: CNode): String = when (node) {

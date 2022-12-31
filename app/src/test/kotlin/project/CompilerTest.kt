@@ -1,5 +1,6 @@
 package project
 
+import project.module.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs

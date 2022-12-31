@@ -1,4 +1,4 @@
-package project
+package project.module
 
 class Traverser(val visitor: (Node, Node) -> Unit) {
     fun exec(ast: Program) {

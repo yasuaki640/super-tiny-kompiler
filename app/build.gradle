@@ -32,7 +32,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'project.AppKt'
+    mainClass = 'project.CompilerKt'
 }
 
 tasks.named('test') {

@@ -1,4 +1,4 @@
-package project
+package project.module
 
 class Transformer {
     fun exec(ast: Program): CProgram {

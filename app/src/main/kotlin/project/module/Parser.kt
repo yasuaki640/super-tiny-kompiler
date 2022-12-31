@@ -1,4 +1,4 @@
-package project
+package project.module
 
 class Parser {
     fun exec(tokens: ArrayList<Token>): Program {

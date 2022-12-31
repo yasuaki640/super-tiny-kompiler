@@ -1,4 +1,4 @@
-package project
+package project.module
 
 class Tokenizer {
     fun exec(input: String): ArrayList<Token> {

@@ -1,30 +1,29 @@
-package project;
+package project
 
-class Traverser {
-    fun exec(ast: Program, visitor: (Node, Node) -> Unit) {
-        traverseNode(ast, visitor)
+class Traverser(val visitor: (Node, Node) -> Unit) {
+    fun exec(ast: Program) {
+        traverseNode(ast, null)
     }
 
     private fun traverseArray(children: ArrayList<Node>, parent: Node) {
         children.forEach { traverseNode(it, parent) }
     }
 
-    private fun traverseNode(node: Node, parent: Any) {
+    private fun traverseNode(node: Node, parent: Node?) {
         // If there is an `enter` method for this node type we'll call it with the
         // `node` and its `parent`.
-        TODO("execute enter if exists")
+        parent?.let { visitor(node, it) }
 
         when (node) {
             is Program -> traverseArray(node.body, node)
             is CallExpression -> traverseArray(node.params, node)
             is NumberLiteral -> {}
             is StringLiteral -> {}
-        } // sealed interfaceかつ、未確認のtokenは前処理で弾いてるからelseは不要
+        }
 
 
-        // If there is an `exit` method for this node type we'll call it with the
-        // `node` and its `parent`.
-        TODO("execute exit if exists")
+        // The exit process does not exist in this project.
+
     }
 }
 
@@ -43,4 +42,4 @@ class CCallExpression(
     val arguments: ArrayList<CNode>
 ) : CNode
 
-class CExpressionStatement(expression: CCallExpression) : CNode
+class CExpressionStatement(val expression: CCallExpression) : CNode

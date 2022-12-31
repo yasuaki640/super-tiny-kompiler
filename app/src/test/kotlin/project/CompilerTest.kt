@@ -63,4 +63,29 @@ class CompilerTest {
         val rightInnerNumber = callInner.params[1] as NumberLiteral
         assertEquals(rightInnerNumber.value, "2")
     }
+
+    @Test
+    fun transformerCanTransformAstToNewAst() {
+        val transformer = Transformer()
+
+        val result = transformer.exec(
+            Program(
+                arrayListOf(
+                    CallExpression(
+                        "add", arrayListOf(
+                            NumberLiteral("2"), CallExpression(
+                                "subtract", arrayListOf(
+                                    NumberLiteral("4"), NumberLiteral("2")
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+
+        val body = result.body
+        val expressionStatement = body.first()
+        assertIs<CExpressionStatement>(expressionStatement)
+    }
 }
